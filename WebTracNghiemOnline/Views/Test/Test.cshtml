@@ -1,0 +1,120 @@
+﻿@using WebTracNghiemOnline.Models
+@model IEnumerable<Question>
+
+@{
+    ViewBag.Title = "Question";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    IEnumerable<Answer> lstAnswer = ViewBag.Answers as IEnumerable<Answer>;
+}
+<h2>Test</h2>
+<script src="~/Scripts/jquery-3.5.1.min.js"></script>
+@using (Html.BeginForm("Check", "Test"))
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ID_Question)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Content_of_Question)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Score)
+            </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            using (Html.BeginForm()) 
+            {
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ID_Question)
+                    </td>
+                    <td class="tdAnswer">
+                        @Html.DisplayFor(modelItem => item.Content_of_Question)<br />
+                        @foreach (var it in lstAnswer)
+                        {
+                            if (it.ID_Question == item.ID_Question)
+                            {
+                                if (item.Type_of_Question == 1)
+                                {
+                                    @Html.RadioButton("Correct_Answer",it.Correct_Answer, new { @class = "Correct_Answer" })
+                                }
+                                else
+                                {
+                                    @Html.CheckBox("Correct_Answer",true, new { @class = "Correct_Answer" })
+                                }
+                                @Html.DisplayFor(m => it.Answer1)<br />
+                            }
+                        }
+                    </td>
+                    <td class="score">
+                        @Html.Label("TestCorrect", "0")/@Html.DisplayFor(modelItem => item.Score)
+                    </td>
+                </tr>
+            }
+            
+        }
+        <tr style="display:none">@Html.Hidden("ID_Quiz", (int)ViewBag.Id, new { @class = "ID_Quiz" })</tr>
+        <tr style="display:none">
+            <td>
+                @foreach (var i in lstAnswer)
+                {
+                    @Html.TextBox("ID", i.ID_Question, new { @class = "ID" })
+                }
+            </td>
+        </tr>
+        <tr style="display:none">
+            <td>
+                @foreach (var i in lstAnswer)
+                {
+                    @Html.TextBox("Answers", i.Answer1, new { @class = "Answers" })
+                }
+            </td>
+        </tr>
+
+    </table>
+    <input type="submit" value="Nộp bài" class="btn-success" id="btnSubmit" />
+}
+
+
+<style>
+    #Correct_Answer {
+        margin-right: 10px;
+    }
+
+    .score {
+        width: 65px;
+    }
+
+    .tdAnswer {
+    }
+</style>
+<script>
+    $('#btnSubmit').click(function () {
+        Update_Submit();
+    })
+    function Update_Submit() {
+        var i = 0;
+        $('.ID').each(function () {
+            $(this).attr('value', parseInt(i / 4) + 1);
+            $(this).attr('name', "[" + i + "].ID");
+            i++;
+        })
+        i = 0;
+        $('.Answers').each(function () {
+            $(this).attr('name', "[" + i + "].Answer");
+            i++;
+        })
+        i = 0;
+        $('.Correct_Answer').each(function () {
+            if ($(this).is(':checked') == true)
+                $(this).attr('value', true);
+            else
+                $(this).attr('value', false);
+            $(this).attr('name', "[" + i + "].Correct_Answer");
+            i++;
+        })
+    }
+</script>

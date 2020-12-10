@@ -1,0 +1,54 @@
+﻿@model WebTracNghiemOnline.Models.Quiz
+@{
+    ViewBag.Title = "EditQuiz";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>EditQuiz</h2>
+<table class="table">
+    <tr>
+        <td>ID</td>
+        <td>Tiêu đề</td>
+        <td>Key</td>
+        <td>Bắt đầu</td>
+        <td>Kết thúc</td>
+        <td>Thời gian</td>
+        <td>Số lần</td>
+        <td>Creator</td>
+        <td></td>
+    </tr>
+    @using (Html.BeginForm("UpdateQuiz", "QuanLy"))
+    {
+        <tr>
+            <td>@Model.ID_Quiz @Html.Hidden("ID_Quiz", Model.ID_Quiz)</td>
+            <td>@Html.TextBox("Title", Model.Title)</td>
+            <td>@Html.TextBox("Keys", Model.Keys)</td>
+            <td>@Html.TextBox("Time_Start", Model.Time_Start)</td>
+            <td>@Html.TextBox("Time_Finish", Model.Time_Finish)</td>
+            <td>@Html.TextBox("Time", Model.Time)</td>
+            <td>@Html.TextBox("Allow_Attemp", Model.Allow_Attemp)</td>
+            <td>@Model.Creator @Html.Hidden("Creator", Model.Creator)</td>
+            <td><input type="submit" value="Cập nhật" class="btn btn-success" id="btnCapNhat" /></td>
+        </tr>
+    }
+</table>
+<style>
+    .table{
+        width:100%;
+    }
+    #Allow_Attemp{
+        width:40px;
+    }
+    #Keys{
+        width:60px;
+    }
+    #Time{
+        width:70px;
+    }
+    #Title{
+        width:500px;
+    }
+    input{
+        max-width:500px;
+    }
+</style>

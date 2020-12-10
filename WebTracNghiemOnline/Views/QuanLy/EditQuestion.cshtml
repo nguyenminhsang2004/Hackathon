@@ -1,0 +1,94 @@
+﻿@using WebTracNghiemOnline.Models
+
+@model  Question
+
+@{
+    ViewBag.Title = "EditQuestion";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    IEnumerable<Answer> lstAnswer = ViewBag.Answers as IEnumerable<Answer>;
+    List<string> type = new List<string>() { "Đúng/Sai", "Một hoặc nhiều đáp án", "Nối cột", "Điền khuyết" };
+}
+<script src="~/Scripts/jquery-3.5.1.min.js"></script>
+<h2>EditQuestion</h2>
+
+<table class="table">
+    <tr>
+        <td>Câu</td>
+        <td>Nội dung</td>
+        <td>Loại</td>
+        <td>Câu trả lời</td>
+        <td>Đáp án đúng</td>
+        <td>Điểm</td>
+        <td></td>
+    </tr>
+    @using (Html.BeginForm("UpdateQuestion", "QuanLy"))
+    {
+        <tr>
+            <td>@Model.ID_Question @Html.Hidden("ID_Question", Model.ID_Question)</td>
+            <td>@Html.TextArea("Content_of_Question", Model.Content_of_Question)</td>
+            <td>
+                <select name="Type_of_Question">
+                    <option value="1">Đúng/Sai</option>
+                    <option value="2">Một hoặc nhiều đáp án</option>
+                    <option value="3">Nối cột</option>
+                    <option value="4">Điền khuyết</option>
+                </select>
+            </td>
+            <td>
+                @foreach (var item in lstAnswer)
+                {
+                    @Html.TextArea("Answers", item.Answer1, new { @class = "Answers" })<br />
+                }
+            </td>
+            <td>
+                @foreach (var item in lstAnswer)
+                {
+                    @Html.CheckBox("Correct_Answer", item.Correct_Answer == true ? true : false, new { @class = "Correct_Answer" })<br />
+                }
+            </td>
+            <td>@Html.TextBox("Score", Model.Score)</td>
+            <td><input type="submit" value="Cập nhật" class="btn btn-success" id="btnCapNhat" /></td>
+            <td style="display:none">@Html.Hidden("ID_Quiz", (int)ViewBag.Id)</td>
+            <td style="display:none">
+                @foreach (var item in lstAnswer)
+                {
+                    @Html.TextBox("ID", item.ID_Question, new { @class = "ID" })<br />
+                }
+            </td>
+        </tr>
+    }
+</table>
+<style>
+    #Score{
+        width:40px;
+        text-align:center;
+    }
+</style>
+<script>
+    $('#btnCapNhat').click(function () {
+        Update_Submit();
+    })
+    function Update_Submit() {
+        var i = 0;
+        $('.ID').each(function () {
+            $(this).attr('name', "[" + i + "].ID");
+            i++;
+        })
+        i = 0;
+        $('.Answers').each(function () {
+            $(this).attr('name', "[" + i + "].Answer");
+            i++;
+        })
+        i = 0;
+        $('.Correct_Answer').each(function () {
+            if ($(this).is(':checked') == true) {
+                $(this).attr('value', true);
+            }
+            else {
+                $(this).attr('value', false);
+            }
+            $(this).attr('name', "[" + i + "].Correct_Answer");
+            i++;
+        })
+    }
+</script>

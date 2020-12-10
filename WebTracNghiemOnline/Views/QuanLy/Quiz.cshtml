@@ -1,0 +1,56 @@
+﻿@model IEnumerable<WebTracNghiemOnline.Models.Quiz>
+@{
+    ViewBag.Title = "Quiz";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    WebGrid grid = new WebGrid(source: Model, rowsPerPage: 10);
+}
+
+<h2>Quiz</h2>
+
+@grid.GetHtml(
+    tableStyle: "gridTable",
+    headerStyle: "gridHeard",
+    footerStyle: "gridFooter",
+    rowStyle: "gridRow",
+    alternatingRowStyle: "gridAltRow",
+    columns: grid.Columns(
+        grid.Column("ID_Quiz", header: "ID Quiz"),
+        grid.Column("Title", header: "Tên bài Quiz"),
+        grid.Column("Keys", header: "Mã"),
+        grid.Column("Time_Start", header: "Bắt đầu"),
+        grid.Column("Time_Finish", header: "Kết thúc"),
+        grid.Column("Time", header: "Thời gian làm"),
+        grid.Column("Allow_Attemp", header: "Số lần"),
+        grid.Column("Creator", header: "Creator"),        
+        grid.Column("Chi tiết", format: p => @Html.ActionLink("Xem chi tiết", "Question", new { id = p.ID_Quiz })),
+        grid.Column("Chỉnh sửa", format: p => @Html.ActionLink("Chỉnh sửa", "EditQuiz", new { id = p.ID_Quiz })),
+        grid.Column("Xóa", format: p => @Html.ActionLink("Xóa", "DeleteQuiz", new { id = p.ID_Quiz })),
+        grid.Column("Test", format: p => @Html.ActionLink("Test", "Test","Test", new { id = p.ID_Quiz },null))
+    )
+)
+<style>
+    .gridTable {
+        border: 1px solid #999999;
+        width: 100%;
+    }
+
+        .gridTable td {
+            border: 1px solid #999999;
+        }
+
+    .gridHeard {
+        background: #a39d9d;
+        text-align: center;
+    }
+
+        .gridHeard th a {
+            text-align: center;
+            text-decoration: none;
+            color: black;
+        }
+
+    tr {
+        height: 50px;
+    }
+</style>
+

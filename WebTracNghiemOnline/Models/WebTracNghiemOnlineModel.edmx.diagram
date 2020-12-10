@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0ddbf3dbe3ca41f6809c7469011072c7" Name="Diagram1">
+        <EntityTypeShape EntityType="TRACNGHIEM_ONLINEModel.Answer" Width="1.5" PointX="9.75" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="TRACNGHIEM_ONLINEModel.Join_Quiz" Width="1.5" PointX="7.5" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TRACNGHIEM_ONLINEModel.Question" Width="1.5" PointX="7.5" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TRACNGHIEM_ONLINEModel.Quiz" Width="1.5" PointX="5.25" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TRACNGHIEM_ONLINEModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TRACNGHIEM_ONLINEModel.Type_of_Question" Width="1.5" PointX="5.25" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TRACNGHIEM_ONLINEModel.User_Admin" Width="1.5" PointX="3" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TRACNGHIEM_ONLINEModel.User_Answer" Width="1.5" PointX="3" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TRACNGHIEM_ONLINEModel.User_Ask" Width="1.5" PointX="3" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TRACNGHIEM_ONLINEModel.User" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
+        <AssociationConnector Association="TRACNGHIEM_ONLINEModel.FK__Answer__20C1E124" ManuallyRouted="false" />
+        <AssociationConnector Association="TRACNGHIEM_ONLINEModel.FK__Join_Quiz__ID_Qu__21B6055D" ManuallyRouted="false" />
+        <AssociationConnector Association="TRACNGHIEM_ONLINEModel.FK__Join_Quiz__ID_Us__22AA2996" ManuallyRouted="false" />
+        <AssociationConnector Association="TRACNGHIEM_ONLINEModel.FK__Question__ID_Qui__239E4DCF" ManuallyRouted="false" />
+        <AssociationConnector Association="TRACNGHIEM_ONLINEModel.FK_Question_Type_of_Question" ManuallyRouted="false" />
+        <AssociationConnector Association="TRACNGHIEM_ONLINEModel.FK__Quiz__Creator__25869641" ManuallyRouted="false" />
+        <AssociationConnector Association="TRACNGHIEM_ONLINEModel.FK__User_Admi__ID_Us__267ABA7A" ManuallyRouted="false" />
+        <AssociationConnector Association="TRACNGHIEM_ONLINEModel.FK__User_Answ__ID_Us__276EDEB3" ManuallyRouted="false" />
+        <AssociationConnector Association="TRACNGHIEM_ONLINEModel.FK__User_Ask__ID_Use__286302EC" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

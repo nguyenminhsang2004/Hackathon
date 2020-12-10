@@ -1,0 +1,72 @@
+﻿@model IEnumerable<WebTracNghiemOnline.Models.Question>
+
+@{
+    ViewBag.Title = "Question";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    IEnumerable<WebTracNghiemOnline.Models.Answer> lstAnswer = ViewBag.Answers as IEnumerable<WebTracNghiemOnline.Models.Answer>;
+    List<string> type = new List<string>() { "Đúng/Sai", "Một hoặc nhiều đáp án", "Nối cột", "Điền khuyết" };
+}
+
+<h2>Question</h2>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ID_Question)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Content_of_Question)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Type_of_Question)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Answers)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Score)
+        </th>
+        <th>Chỉnh sửa</th>
+        <th>Xóa</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ID_Question)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Content_of_Question)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => type[(int)item.Type_of_Question-1])
+        </td>
+        <td>
+            @foreach (var it in lstAnswer)
+            {
+                if (it.ID_Question == item.ID_Question)
+                {
+                    @Html.CheckBox("Correct", it.Correct_Answer == true ? true : false)
+                    @Html.DisplayFor(m => it.Answer1)<br />
+
+                }
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Score)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "EditQuestion", new { id=item.ID_Question })             
+        </td>
+        <td>
+            @Html.ActionLink("Delete", "DeleteQuestion", new { id = item.ID_Question })
+        </td>
+    </tr>
+}
+
+</table>
+
+<style>
+    #Correct{
+        margin-right:10px;
+    }
+</style>

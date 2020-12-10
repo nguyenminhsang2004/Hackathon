@@ -1,0 +1,197 @@
+﻿
+@model  WebTracNghiemOnline.Models.Quiz
+
+@{ 
+    ViewBag.Title = "AddQuiz";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>AddQuiz</h2>
+<script src="~/Scripts/jquery-3.5.1.min.js"></script>
+@using (Html.BeginForm())
+{
+    <div class="col-md-12" style="margin-bottom:5px">
+        <div class="col-md-2">Tiêu đề Quiz:</div>
+        <input type="text" name="Title" />
+    </div>
+    <div class="col-md-12" style="margin-bottom:5px">
+        <div class="col-md-2">Key Quiz:</div>
+        <input type="text" value="@ViewBag.Key" name="Keys" />
+    </div>
+    <div class="col-md-12" style="margin-bottom:5px">
+        <div class="col-md-2">Bắt đầu:</div>
+        <input type="time" name="Time_Start" />
+    </div>
+    <div class="col-md-12" style="margin-bottom:5px">
+        <div class="col-md-2">Kết thúc:</div>
+        <input type="time" name="Time_Finish" />
+    </div>
+    <div class="col-md-12" style="margin-bottom:5px">
+        <div class="col-md-2">Thời gian làm:</div>
+        <input type="time" name="Time" />
+    </div>
+    <table class="table tbQuestion">
+        <tr>
+            <td>Câu</td>
+            <td>Nội dung</td>
+            <td>Loại câu hỏi</td>
+            <td>Đáp án</td>
+            <td>Đáp án đúng</td>
+            <td>Điểm</td>
+            <td>Nhập lại</td>
+            <td>Xóa</td>
+        </tr>
+        <tr class="trAppend" data-id="0" id="" style="display:none;">
+            <td>
+                <input name="" class="lblSTT" id="STT" type="tel" style=" max-width: 40px; text-align: center; font-family: segoe ui; font-weight: bold;" value="1" />
+            </td>
+            <td>
+                <input name="" class="txtTitle" type="text" />
+            </td>
+            <td>
+                <select class="cboType" name="">
+                    <option value="1">Đúng/Sai</option>
+                    <option value="2">Một hoặc nhiều đáp án</option>
+                    <option value="3">Nối cột</option>
+                    <option value="4">Điền khuyết</option>
+                </select>
+            </td>
+            <td>
+                <div class="divDA" data-da="4" id="1">
+                    <label>A</label>
+                    <input type="text" data-id="0" class="txtDA" style="margin-bottom:5px" /><br />
+                    <label>B</label>
+                    <input type="text" data-id="1" class="txtDA" style="margin-bottom:5px" /><br />
+                    <label>C</label>
+                    <input type="text" data-id="2" class="txtDA" style="margin-bottom:5px" /><br />
+                    <label>D</label>
+                    <input type="text" data-id="3" class="txtDA" style="margin-bottom:5px" /><br />
+                    <input value="1" class="IDQ ID1" style="display:none" />
+                    <input value="1" class="IDQ ID2" style="display:none" />
+                    <input value="1" class="IDQ ID3" style="display:none" />
+                    <input value="1" class="IDQ ID4" style="display:none" />
+                </div>
+            </td>
+            <td>
+                <div class="divDAD" data-dad="1">
+                    <input name="" class="ckDA" type="checkbox" data-id="0" value="" /><br />
+                    <input name="" class="ckDA" type="checkbox" data-id="1" style="margin-top:13px" value="" /><br />
+                    <input name="" class="ckDA" type="checkbox" data-id="2" style="margin-top:13px" value="" /><br />
+                    <input name="" class="ckDA" type="checkbox" data-id="3" style="margin-top:13px" value="" /><br />
+                </div>
+            </td>
+            <td>
+                <input type="text" name="" class="txtscore" style="width:60px;height:30px;text-align:center;" />
+            </td>
+            <td>
+                <input type="button" class="btn-success btnNhapLai" value="Nhập lại" />
+            </td>
+            <td>
+                <input type="button" class="btn-danger btnDelete" value="Xóa" />
+            </td>
+        </tr>
+    </table>
+    <input type="button" value="+" class="btn-success" id="btnAdd" style="width:30px;height:30px;" />
+    <input type="submit" value="Submit" class="btn-primary" id="btnSubmit" style="height:30px;" />
+}
+<script>
+    $('#btnSubmit').click(function () {
+        Check_DA();
+        LoadNameQuestion();
+        LoadNameAnswer();
+    })
+    //Thêm câu hỏi
+    $('#btnAdd').click(function () {
+        var id = $('.tbQuestion').find('.trAppend').attr('data-id');
+        i = parseInt(id) + 1;
+        $('.tbQuestion').find('.trAppend').attr('data-id', i);
+        $('.tbQuestion').find('tr:first-child').attr("data-id", i);
+        var noidung = $(".trAppend").html();
+        var tr = "<tr class=\"trAppended trAppended" + i + "\" data-id=\"" + i + "\">" + noidung + "</tr>";
+        $(".tbQuestion").append(tr);
+
+        $('.trAppended' + i).find('.lblSTT').attr('value', i);
+        $('.trAppended' + i).attr('data-id', i);
+
+        $('.trAppended' + i).find('.divDA').attr("data-da", i);
+        $('.trAppended' + i).find('.divDAD').attr("data-da", i);
+
+        $('.trAppended' + i).find('.IDQ').each(function () {
+            $(this).attr('value', i);
+        })
+    });
+    //Xóa câu hỏi
+    $('body').delegate(".btnDelete", "click", function () {
+        $(this).closest('.trAppended').remove();
+        var i = 1;
+        $('.trAppended').each(function () {
+            $(this).attr('data-id', i);
+            $(this).find('#STT').attr('value', i);
+            $(this).find('.divDA').attr("data-da", i);
+            $(this).find('.divDAD').attr("data-dad", i);
+
+            $(this).find('.IDQ').each(function () {
+                $(this).attr('value', i);
+            })
+            i++;
+        })
+        $('.tbQuestion').find('.trAppend').attr('data-id', i-1);
+    });
+    //Nhập lại
+    $('body').delegate(".btnNhapLai", "click", function () {
+        $(this).closest('.trAppended').each(function () {
+            $(this).find('.txtTitle').val("");
+            $(this).find('.txtDA').val("");
+            $(this).find('.txtscore').val("");
+            $(this).find('.cboType').val(1);
+            //$(this).find('.ckDA').attr('ckecked', false);     
+            //Chưa uncheck được các checkbox
+        })
+    });
+    //Cập nhật tên câu hỏi
+    function LoadNameQuestion() {
+        $('.trAppended').each(function () {
+            var i = $(this).attr('data-id');
+            var id = parseInt(i) - 1;
+            var nameID = "[" + id + "].ID_Question";
+            var nameTitle = "[" + id + "].Content_of_Question";
+            var nameType = "[" + id + "].Type_of_Question";
+            var nameScore = "[" + id + "].Score";
+            $(this).find('.lblSTT').attr("name", nameID);
+            $(this).find('.txtTitle').attr("name", nameTitle);
+            $(this).find('.cboType').attr("name", nameType);
+            $(this).find('.txtscore').attr("name", nameScore);
+        })
+    };
+    //Check đáp án đúng
+    function Check_DA() {
+        $('.ckDA').each(function () {
+            if ($(this).is(':checked') == true) {
+                $(this).attr('value', true);
+            }
+            else {
+                $(this).attr('value', false);
+            }
+        })
+    };
+    //Cập nhật tên đáp án
+    function LoadNameAnswer() {   
+        var i = 1;
+        $('.trAppended').find('.txtDA').each(function () {
+            var nameAnswer = "[" + (i - 1) + "].Answer";
+            $(this).attr('name', nameAnswer);
+            i++;
+        })
+        i = 1;
+        $('.trAppended').find('.ckDA').each(function () {
+            var nameCorrect = "[" + (i - 1) + "].Correct_Answer";
+            $(this).attr('name', nameCorrect);
+            i++;
+        })
+        i = 1;
+        $('.trAppended').find('.IDQ').each(function () {
+            var nameID = "[" + (i - 1) + "].ID";
+            $(this).attr('name', nameID);
+            i++;
+        })
+    }
+</script>

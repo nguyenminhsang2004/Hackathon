@@ -1,0 +1,676 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TRACNGHIEM_ONLINEModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Answer">
+          <Key>
+            <PropertyRef Name="ID_Quiz" />
+            <PropertyRef Name="ID_Question" />
+            <PropertyRef Name="Answer" />
+          </Key>
+          <Property Name="ID_Quiz" Type="int" Nullable="false" />
+          <Property Name="ID_Question" Type="int" Nullable="false" />
+          <Property Name="Answer" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Correct_Answer" Type="bit" />
+        </EntityType>
+        <EntityType Name="Join_Quiz">
+          <Key>
+            <PropertyRef Name="ID_User" />
+            <PropertyRef Name="ID_Quiz" />
+          </Key>
+          <Property Name="ID_User" Type="int" Nullable="false" />
+          <Property Name="ID_Quiz" Type="int" Nullable="false" />
+          <Property Name="Number_of_Times" Type="int" />
+          <Property Name="Score" Type="float" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="ID_Quiz" />
+            <PropertyRef Name="ID_Question" />
+          </Key>
+          <Property Name="ID_Quiz" Type="int" Nullable="false" />
+          <Property Name="ID_Question" Type="int" Nullable="false" />
+          <Property Name="Content_of_Question" Type="nvarchar" MaxLength="500" />
+          <Property Name="Type_of_Question" Type="int" />
+          <Property Name="Score" Type="float" />
+        </EntityType>
+        <EntityType Name="Quiz">
+          <Key>
+            <PropertyRef Name="ID_Quiz" />
+          </Key>
+          <Property Name="ID_Quiz" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" />
+          <Property Name="Time_Start" Type="datetime" />
+          <Property Name="Time_Finish" Type="datetime" />
+          <Property Name="Time" Type="time" Precision="7" />
+          <Property Name="Allow_Attemp" Type="int" />
+          <Property Name="Keys" Type="varchar" MaxLength="10" />
+          <Property Name="Creator" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Type_of_Question">
+          <Key>
+            <PropertyRef Name="ID_Type" />
+          </Key>
+          <Property Name="ID_Type" Type="int" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="User_Admin">
+          <Key>
+            <PropertyRef Name="ID_User" />
+          </Key>
+          <Property Name="ID_User" Type="int" Nullable="false" />
+          <Property Name="MSGV" Type="varchar" MaxLength="4" />
+        </EntityType>
+        <EntityType Name="User_Answer">
+          <Key>
+            <PropertyRef Name="ID_User" />
+          </Key>
+          <Property Name="ID_User" Type="int" Nullable="false" />
+          <Property Name="MSSV" Type="varchar" MaxLength="8" />
+        </EntityType>
+        <EntityType Name="User_Ask">
+          <Key>
+            <PropertyRef Name="ID_User" />
+          </Key>
+          <Property Name="ID_User" Type="int" Nullable="false" />
+          <Property Name="MSGV" Type="varchar" MaxLength="4" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID_User" />
+          </Key>
+          <Property Name="ID_User" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Date_of_Birth" Type="date" />
+          <Property Name="Sex" Type="bit" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" />
+          <Property Name="Phone" Type="char" MaxLength="10" />
+          <Property Name="Mail" Type="varchar" MaxLength="30" />
+          <Property Name="Username" Type="varchar" MaxLength="30" />
+          <Property Name="Password" Type="varchar" MaxLength="30" />
+          <Property Name="Permisson" Type="int" />
+        </EntityType>
+        <Association Name="FK__Answer__20C1E124">
+          <End Role="Question" Type="Self.Question" Multiplicity="1" />
+          <End Role="Answer" Type="Self.Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="ID_Quiz" />
+              <PropertyRef Name="ID_Question" />
+            </Principal>
+            <Dependent Role="Answer">
+              <PropertyRef Name="ID_Quiz" />
+              <PropertyRef Name="ID_Question" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Join_Quiz__ID_Qu__21B6055D">
+          <End Role="Quiz" Type="Self.Quiz" Multiplicity="1" />
+          <End Role="Join_Quiz" Type="Self.Join_Quiz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quiz">
+              <PropertyRef Name="ID_Quiz" />
+            </Principal>
+            <Dependent Role="Join_Quiz">
+              <PropertyRef Name="ID_Quiz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Join_Quiz__ID_Us__22AA2996">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Join_Quiz" Type="Self.Join_Quiz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID_User" />
+            </Principal>
+            <Dependent Role="Join_Quiz">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Question__ID_Qui__239E4DCF">
+          <End Role="Quiz" Type="Self.Quiz" Multiplicity="1" />
+          <End Role="Question" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quiz">
+              <PropertyRef Name="ID_Quiz" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="ID_Quiz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Quiz__Creator__25869641">
+          <End Role="User_Ask" Type="Self.User_Ask" Multiplicity="0..1" />
+          <End Role="Quiz" Type="Self.Quiz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_Ask">
+              <PropertyRef Name="ID_User" />
+            </Principal>
+            <Dependent Role="Quiz">
+              <PropertyRef Name="Creator" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__User_Admi__ID_Us__267ABA7A">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="User_Admin" Type="Self.User_Admin" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID_User" />
+            </Principal>
+            <Dependent Role="User_Admin">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__User_Answ__ID_Us__276EDEB3">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="User_Answer" Type="Self.User_Answer" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID_User" />
+            </Principal>
+            <Dependent Role="User_Answer">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__User_Ask__ID_Use__286302EC">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="User_Ask" Type="Self.User_Ask" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID_User" />
+            </Principal>
+            <Dependent Role="User_Ask">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Question_Type_of_Question">
+          <End Role="Type_of_Question" Type="Self.Type_of_Question" Multiplicity="0..1" />
+          <End Role="Question" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type_of_Question">
+              <PropertyRef Name="ID_Type" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="Type_of_Question" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TRACNGHIEM_ONLINEModelStoreContainer">
+          <EntitySet Name="Answer" EntityType="Self.Answer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Join_Quiz" EntityType="Self.Join_Quiz" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Quiz" EntityType="Self.Quiz" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Type_of_Question" EntityType="Self.Type_of_Question" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User_Admin" EntityType="Self.User_Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User_Answer" EntityType="Self.User_Answer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User_Ask" EntityType="Self.User_Ask" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Answer__20C1E124" Association="Self.FK__Answer__20C1E124">
+            <End Role="Question" EntitySet="Question" />
+            <End Role="Answer" EntitySet="Answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Join_Quiz__ID_Qu__21B6055D" Association="Self.FK__Join_Quiz__ID_Qu__21B6055D">
+            <End Role="Quiz" EntitySet="Quiz" />
+            <End Role="Join_Quiz" EntitySet="Join_Quiz" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Join_Quiz__ID_Us__22AA2996" Association="Self.FK__Join_Quiz__ID_Us__22AA2996">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Join_Quiz" EntitySet="Join_Quiz" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Question__ID_Qui__239E4DCF" Association="Self.FK__Question__ID_Qui__239E4DCF">
+            <End Role="Quiz" EntitySet="Quiz" />
+            <End Role="Question" EntitySet="Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Quiz__Creator__25869641" Association="Self.FK__Quiz__Creator__25869641">
+            <End Role="User_Ask" EntitySet="User_Ask" />
+            <End Role="Quiz" EntitySet="Quiz" />
+          </AssociationSet>
+          <AssociationSet Name="FK__User_Admi__ID_Us__267ABA7A" Association="Self.FK__User_Admi__ID_Us__267ABA7A">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="User_Admin" EntitySet="User_Admin" />
+          </AssociationSet>
+          <AssociationSet Name="FK__User_Answ__ID_Us__276EDEB3" Association="Self.FK__User_Answ__ID_Us__276EDEB3">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="User_Answer" EntitySet="User_Answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__User_Ask__ID_Use__286302EC" Association="Self.FK__User_Ask__ID_Use__286302EC">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="User_Ask" EntitySet="User_Ask" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Question_Type_of_Question" Association="Self.FK_Question_Type_of_Question">
+            <End Role="Type_of_Question" EntitySet="Type_of_Question" />
+            <End Role="Question" EntitySet="Question" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TRACNGHIEM_ONLINEModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Answer">
+          <Key>
+            <PropertyRef Name="ID_Quiz" />
+            <PropertyRef Name="ID_Question" />
+            <PropertyRef Name="Answer1" />
+          </Key>
+          <Property Name="ID_Quiz" Type="Int32" Nullable="false" />
+          <Property Name="ID_Question" Type="Int32" Nullable="false" />
+          <Property Name="Answer1" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Correct_Answer" Type="Boolean" />
+          <NavigationProperty Name="Question" Relationship="Self.FK__Answer__20C1E124" FromRole="Answer" ToRole="Question" />
+        </EntityType>
+        <EntityType Name="Join_Quiz">
+          <Key>
+            <PropertyRef Name="ID_User" />
+            <PropertyRef Name="ID_Quiz" />
+          </Key>
+          <Property Name="ID_User" Type="Int32" Nullable="false" />
+          <Property Name="ID_Quiz" Type="Int32" Nullable="false" />
+          <Property Name="Number_of_Times" Type="Int32" />
+          <Property Name="Score" Type="Double" />
+          <NavigationProperty Name="Quiz" Relationship="Self.FK__Join_Quiz__ID_Qu__21B6055D" FromRole="Join_Quiz" ToRole="Quiz" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Join_Quiz__ID_Us__22AA2996" FromRole="Join_Quiz" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="ID_Quiz" />
+            <PropertyRef Name="ID_Question" />
+          </Key>
+          <Property Name="ID_Quiz" Type="Int32" Nullable="false" />
+          <Property Name="ID_Question" Type="Int32" Nullable="false" />
+          <Property Name="Content_of_Question" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Type_of_Question" Type="Int32" />
+          <Property Name="Score" Type="Double" />
+          <NavigationProperty Name="Answers" Relationship="Self.FK__Answer__20C1E124" FromRole="Question" ToRole="Answer" />
+          <NavigationProperty Name="Quiz" Relationship="Self.FK__Question__ID_Qui__239E4DCF" FromRole="Question" ToRole="Quiz" />
+          <NavigationProperty Name="Type_of_Question1" Relationship="Self.FK_Question_Type_of_Question" FromRole="Question" ToRole="Type_of_Question" />
+        </EntityType>
+        <EntityType Name="Quiz">
+          <Key>
+            <PropertyRef Name="ID_Quiz" />
+          </Key>
+          <Property Name="ID_Quiz" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Time_Start" Type="DateTime" Precision="3" />
+          <Property Name="Time_Finish" Type="DateTime" Precision="3" />
+          <Property Name="Time" Type="Time" Precision="7" />
+          <Property Name="Allow_Attemp" Type="Int32" />
+          <Property Name="Keys" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Creator" Type="Int32" />
+          <NavigationProperty Name="Join_Quiz" Relationship="Self.FK__Join_Quiz__ID_Qu__21B6055D" FromRole="Quiz" ToRole="Join_Quiz" />
+          <NavigationProperty Name="Questions" Relationship="Self.FK__Question__ID_Qui__239E4DCF" FromRole="Quiz" ToRole="Question" />
+          <NavigationProperty Name="User_Ask" Relationship="Self.FK__Quiz__Creator__25869641" FromRole="Quiz" ToRole="User_Ask" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Type_of_Question">
+          <Key>
+            <PropertyRef Name="ID_Type" />
+          </Key>
+          <Property Name="ID_Type" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Questions" Relationship="Self.FK_Question_Type_of_Question" FromRole="Type_of_Question" ToRole="Question" />
+        </EntityType>
+        <EntityType Name="User_Admin">
+          <Key>
+            <PropertyRef Name="ID_User" />
+          </Key>
+          <Property Name="ID_User" Type="Int32" Nullable="false" />
+          <Property Name="MSGV" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK__User_Admi__ID_Us__267ABA7A" FromRole="User_Admin" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="User_Answer">
+          <Key>
+            <PropertyRef Name="ID_User" />
+          </Key>
+          <Property Name="ID_User" Type="Int32" Nullable="false" />
+          <Property Name="MSSV" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK__User_Answ__ID_Us__276EDEB3" FromRole="User_Answer" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="User_Ask">
+          <Key>
+            <PropertyRef Name="ID_User" />
+          </Key>
+          <Property Name="ID_User" Type="Int32" Nullable="false" />
+          <Property Name="MSGV" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Quizs" Relationship="Self.FK__Quiz__Creator__25869641" FromRole="User_Ask" ToRole="Quiz" />
+          <NavigationProperty Name="User" Relationship="Self.FK__User_Ask__ID_Use__286302EC" FromRole="User_Ask" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID_User" />
+          </Key>
+          <Property Name="ID_User" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Date_of_Birth" Type="DateTime" Precision="0" />
+          <Property Name="Sex" Type="Boolean" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="Mail" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Username" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Permisson" Type="Int32" />
+          <NavigationProperty Name="Join_Quiz" Relationship="Self.FK__Join_Quiz__ID_Us__22AA2996" FromRole="Users" ToRole="Join_Quiz" />
+          <NavigationProperty Name="User_Admin" Relationship="Self.FK__User_Admi__ID_Us__267ABA7A" FromRole="Users" ToRole="User_Admin" />
+          <NavigationProperty Name="User_Answer" Relationship="Self.FK__User_Answ__ID_Us__276EDEB3" FromRole="Users" ToRole="User_Answer" />
+          <NavigationProperty Name="User_Ask" Relationship="Self.FK__User_Ask__ID_Use__286302EC" FromRole="Users" ToRole="User_Ask" />
+        </EntityType>
+        <Association Name="FK__Answer__20C1E124">
+          <End Role="Question" Type="Self.Question" Multiplicity="1" />
+          <End Role="Answer" Type="Self.Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="ID_Quiz" />
+              <PropertyRef Name="ID_Question" />
+            </Principal>
+            <Dependent Role="Answer">
+              <PropertyRef Name="ID_Quiz" />
+              <PropertyRef Name="ID_Question" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Join_Quiz__ID_Qu__21B6055D">
+          <End Role="Quiz" Type="Self.Quiz" Multiplicity="1" />
+          <End Role="Join_Quiz" Type="Self.Join_Quiz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quiz">
+              <PropertyRef Name="ID_Quiz" />
+            </Principal>
+            <Dependent Role="Join_Quiz">
+              <PropertyRef Name="ID_Quiz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Join_Quiz__ID_Us__22AA2996">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Join_Quiz" Type="Self.Join_Quiz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID_User" />
+            </Principal>
+            <Dependent Role="Join_Quiz">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Question__ID_Qui__239E4DCF">
+          <End Role="Quiz" Type="Self.Quiz" Multiplicity="1" />
+          <End Role="Question" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quiz">
+              <PropertyRef Name="ID_Quiz" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="ID_Quiz" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Question_Type_of_Question">
+          <End Role="Type_of_Question" Type="Self.Type_of_Question" Multiplicity="0..1" />
+          <End Role="Question" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type_of_Question">
+              <PropertyRef Name="ID_Type" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="Type_of_Question" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Quiz__Creator__25869641">
+          <End Role="User_Ask" Type="Self.User_Ask" Multiplicity="0..1" />
+          <End Role="Quiz" Type="Self.Quiz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_Ask">
+              <PropertyRef Name="ID_User" />
+            </Principal>
+            <Dependent Role="Quiz">
+              <PropertyRef Name="Creator" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__User_Admi__ID_Us__267ABA7A">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="User_Admin" Type="Self.User_Admin" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID_User" />
+            </Principal>
+            <Dependent Role="User_Admin">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__User_Answ__ID_Us__276EDEB3">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="User_Answer" Type="Self.User_Answer" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID_User" />
+            </Principal>
+            <Dependent Role="User_Answer">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__User_Ask__ID_Use__286302EC">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="User_Ask" Type="Self.User_Ask" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID_User" />
+            </Principal>
+            <Dependent Role="User_Ask">
+              <PropertyRef Name="ID_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TRACNGHIEM_ONLINEEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Answers" EntityType="Self.Answer" />
+          <EntitySet Name="Join_Quiz" EntityType="Self.Join_Quiz" />
+          <EntitySet Name="Questions" EntityType="Self.Question" />
+          <EntitySet Name="Quizs" EntityType="Self.Quiz" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Type_of_Question" EntityType="Self.Type_of_Question" />
+          <EntitySet Name="User_Admin" EntityType="Self.User_Admin" />
+          <EntitySet Name="User_Answer" EntityType="Self.User_Answer" />
+          <EntitySet Name="User_Ask" EntityType="Self.User_Ask" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK__Answer__20C1E124" Association="Self.FK__Answer__20C1E124">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="Answer" EntitySet="Answers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Join_Quiz__ID_Qu__21B6055D" Association="Self.FK__Join_Quiz__ID_Qu__21B6055D">
+            <End Role="Quiz" EntitySet="Quizs" />
+            <End Role="Join_Quiz" EntitySet="Join_Quiz" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Join_Quiz__ID_Us__22AA2996" Association="Self.FK__Join_Quiz__ID_Us__22AA2996">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Join_Quiz" EntitySet="Join_Quiz" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Question__ID_Qui__239E4DCF" Association="Self.FK__Question__ID_Qui__239E4DCF">
+            <End Role="Quiz" EntitySet="Quizs" />
+            <End Role="Question" EntitySet="Questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Question_Type_of_Question" Association="Self.FK_Question_Type_of_Question">
+            <End Role="Type_of_Question" EntitySet="Type_of_Question" />
+            <End Role="Question" EntitySet="Questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Quiz__Creator__25869641" Association="Self.FK__Quiz__Creator__25869641">
+            <End Role="User_Ask" EntitySet="User_Ask" />
+            <End Role="Quiz" EntitySet="Quizs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__User_Admi__ID_Us__267ABA7A" Association="Self.FK__User_Admi__ID_Us__267ABA7A">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="User_Admin" EntitySet="User_Admin" />
+          </AssociationSet>
+          <AssociationSet Name="FK__User_Answ__ID_Us__276EDEB3" Association="Self.FK__User_Answ__ID_Us__276EDEB3">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="User_Answer" EntitySet="User_Answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__User_Ask__ID_Use__286302EC" Association="Self.FK__User_Ask__ID_Use__286302EC">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="User_Ask" EntitySet="User_Ask" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TRACNGHIEM_ONLINEModelStoreContainer" CdmEntityContainer="TRACNGHIEM_ONLINEEntities">
+          <EntitySetMapping Name="Answers">
+            <EntityTypeMapping TypeName="TRACNGHIEM_ONLINEModel.Answer">
+              <MappingFragment StoreEntitySet="Answer">
+                <ScalarProperty Name="ID_Quiz" ColumnName="ID_Quiz" />
+                <ScalarProperty Name="ID_Question" ColumnName="ID_Question" />
+                <ScalarProperty Name="Answer1" ColumnName="Answer" />
+                <ScalarProperty Name="Correct_Answer" ColumnName="Correct_Answer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Join_Quiz">
+            <EntityTypeMapping TypeName="TRACNGHIEM_ONLINEModel.Join_Quiz">
+              <MappingFragment StoreEntitySet="Join_Quiz">
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+                <ScalarProperty Name="ID_Quiz" ColumnName="ID_Quiz" />
+                <ScalarProperty Name="Number_of_Times" ColumnName="Number_of_Times" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questions">
+            <EntityTypeMapping TypeName="TRACNGHIEM_ONLINEModel.Question">
+              <MappingFragment StoreEntitySet="Question">
+                <ScalarProperty Name="ID_Quiz" ColumnName="ID_Quiz" />
+                <ScalarProperty Name="ID_Question" ColumnName="ID_Question" />
+                <ScalarProperty Name="Content_of_Question" ColumnName="Content_of_Question" />
+                <ScalarProperty Name="Type_of_Question" ColumnName="Type_of_Question" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Quizs">
+            <EntityTypeMapping TypeName="TRACNGHIEM_ONLINEModel.Quiz">
+              <MappingFragment StoreEntitySet="Quiz">
+                <ScalarProperty Name="ID_Quiz" ColumnName="ID_Quiz" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Time_Start" ColumnName="Time_Start" />
+                <ScalarProperty Name="Time_Finish" ColumnName="Time_Finish" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Allow_Attemp" ColumnName="Allow_Attemp" />
+                <ScalarProperty Name="Keys" ColumnName="Keys" />
+                <ScalarProperty Name="Creator" ColumnName="Creator" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="TRACNGHIEM_ONLINEModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Type_of_Question">
+            <EntityTypeMapping TypeName="TRACNGHIEM_ONLINEModel.Type_of_Question">
+              <MappingFragment StoreEntitySet="Type_of_Question">
+                <ScalarProperty Name="ID_Type" ColumnName="ID_Type" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User_Admin">
+            <EntityTypeMapping TypeName="TRACNGHIEM_ONLINEModel.User_Admin">
+              <MappingFragment StoreEntitySet="User_Admin">
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+                <ScalarProperty Name="MSGV" ColumnName="MSGV" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User_Answer">
+            <EntityTypeMapping TypeName="TRACNGHIEM_ONLINEModel.User_Answer">
+              <MappingFragment StoreEntitySet="User_Answer">
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+                <ScalarProperty Name="MSSV" ColumnName="MSSV" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User_Ask">
+            <EntityTypeMapping TypeName="TRACNGHIEM_ONLINEModel.User_Ask">
+              <MappingFragment StoreEntitySet="User_Ask">
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+                <ScalarProperty Name="MSGV" ColumnName="MSGV" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="TRACNGHIEM_ONLINEModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="ID_User" ColumnName="ID_User" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Date_of_Birth" ColumnName="Date_of_Birth" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Permisson" ColumnName="Permisson" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
