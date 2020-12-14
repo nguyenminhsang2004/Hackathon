@@ -29,38 +29,49 @@
         <th>Xóa</th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ID_Question)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Content_of_Question)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => type[(int)item.Type_of_Question-1])
-        </td>
-        <td>
-            @foreach (var it in lstAnswer)
-            {
-                if (it.ID_Question == item.ID_Question)
+@foreach (var item in Model)
+{
+    using (Html.BeginForm())
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID_Question)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Content_of_Question)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => type[(int)item.Type_of_Question - 1])
+            </td>
+            <td>
+                @foreach (var it in lstAnswer)
                 {
-                    @Html.CheckBox("Correct", it.Correct_Answer == true ? true : false)
-                    @Html.DisplayFor(m => it.Answer1)<br />
+                    if (it.ID_Question == item.ID_Question)
+                    {
+                        if (item.Type_of_Question == 1)
+                        {
+                            @Html.RadioButton("Correct", it.Correct_Answer, it.Correct_Answer == true ? true : false)
+                        }
+                        else
+                        {
+                            @Html.CheckBox("Correct", it.Correct_Answer == true ? true : false)
 
+                        }
+                        @Html.DisplayFor(m => it.Answer1)<br />    
+                    }
                 }
-            }
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Score)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "EditQuestion", new { id=item.ID_Question })             
-        </td>
-        <td>
-            @Html.ActionLink("Delete", "DeleteQuestion", new { id = item.ID_Question })
-        </td>
-    </tr>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Score)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditQuestion", new { id = item.ID_Question})             
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "DeleteQuestion", new { id = item.ID_Question})
+            </td>
+        </tr>
+    }
 }
 
 </table>

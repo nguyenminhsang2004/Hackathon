@@ -69,7 +69,7 @@ namespace WebTracNghiemOnline.Controllers
                 var a = _context.Answers.ToList().Where(n => n.ID_Question == id);
                 ViewBag.Answers = a;
                 ViewBag.Id = q.ID_Quiz;
-                return View(q);
+                return View(q) ;
             }
         }
         public ActionResult UpdateQuestion(Question q, IEnumerable<AnswerViewModel> a)
@@ -93,7 +93,7 @@ namespace WebTracNghiemOnline.Controllers
                 _context.Answers.AddRange(aupdate);
                 _context.SaveChanges();
             }
-            return RedirectToAction("Question", new { id = q.ID_Question });
+            return RedirectToAction("Question", new { id = q.ID_Quiz });
         }
         public ActionResult DeleteQuestion(int? id)
         {

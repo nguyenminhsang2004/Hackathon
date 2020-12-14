@@ -39,11 +39,13 @@
                             {
                                 if (item.Type_of_Question == 1)
                                 {
-                                    @Html.RadioButton("Correct_Answer",it.Correct_Answer, new { @class = "Correct_Answer" })
+                                    @*@Html.RadioButton("Correct_Answer",it.Correct_Answer, new { @class = "Correct_Answer" })*@
+                                    <input type="radio" class="Correct_Answer" />
                                 }
                                 else
                                 {
-                                    @Html.CheckBox("Correct_Answer",true, new { @class = "Correct_Answer" })
+                                    @*@Html.CheckBox("Correct_Answer",true, new { @class = "Correct_Answer" })*@
+                                    <input type="checkbox" class="Correct_Answer" />
                                 }
                                 @Html.DisplayFor(m => it.Answer1)<br />
                             }

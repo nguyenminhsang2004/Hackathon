@@ -41,10 +41,20 @@
                 }
             </td>
             <td>
-                @foreach (var item in lstAnswer)
+                @if (Model.Type_of_Question == 1)
                 {
-                    @Html.CheckBox("Correct_Answer", item.Correct_Answer == true ? true : false, new { @class = "Correct_Answer" })<br />
+                    foreach (var item in lstAnswer)
+                    {
+                        @Html.RadioButton("Correct_Answer", item.Correct_Answer, item.Correct_Answer == true ? true : false, new { @class = "Correct_Answer" })<br />
+                    }
                 }
+                else {
+                    foreach (var item in lstAnswer)
+                    {
+                        @Html.CheckBox("Correct_Answer",item.Correct_Answer == true ? true : false, new { @class = "Correct_Answer" })<br />
+                    }
+                }
+
             </td>
             <td>@Html.TextBox("Score", Model.Score)</td>
             <td><input type="submit" value="Cập nhật" class="btn btn-success" id="btnCapNhat" /></td>
