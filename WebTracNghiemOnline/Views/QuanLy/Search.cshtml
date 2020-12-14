@@ -1,16 +1,8 @@
-﻿@model IEnumerable<WebTracNghiemOnline.Models.Quiz>
+﻿
+@model IEnumerable<WebTracNghiemOnline.Models.Quiz>
 @{
-    ViewBag.Title = "Quiz";
-    Layout = "~/Views/Shared/_Layout.cshtml";
     WebGrid grid = new WebGrid(source: Model, rowsPerPage: 10);
 }
-<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
-<script src="~/Scripts/jquery-3.5.1.slim.min.js"></script>
-<h2>Quiz</h2>
-<div class="container">
-    <input type="text" class="txtSearch container" placeholder="Nhập vào từ khóa cần tìm..." />
-    <button class="btnSearch">Tìm kiếm</button>
-</div>
 
 <div class="container" id="kqTimKiem">
     @grid.GetHtml(
@@ -35,44 +27,3 @@
         )
     )
 </div>
-<style>
-    .gridTable {
-        border: 1px solid #999999;
-        width: 100%;
-    }
-
-        .gridTable td {
-            border: 1px solid #999999;
-        }
-
-    .gridHeard {
-        background: #a39d9d;
-        text-align: center;
-    }
-
-        .gridHeard th a {
-            text-align: center;
-            text-decoration: none;
-            color: black;
-        }
-
-    tr {
-        height: 50px;
-    }
-</style>
-<script>
-    $('.btnSearch').click(function () {
-        var tukhoa = $('.txtSearch').val();
-        console.log(tukhoa);
-        $.ajax({
-            type: 'POST',
-            data: {
-                sTuKhoa:tukhoa
-            },
-            url:'@Url.Action("Search","QuanLy")',
-            success: function (ketqua) {
-                $('#kqTimKiem').html(ketqua);
-            }
-        })
-    })
-</script>

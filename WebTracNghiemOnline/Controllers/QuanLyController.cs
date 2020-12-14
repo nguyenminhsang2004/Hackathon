@@ -10,7 +10,18 @@ namespace WebTracNghiemOnline.Controllers
 {
     public class QuanLyController : Controller
     {
+        
         // GET: QuanLy
+        [HttpPost]
+        public ActionResult Search(string sTuKhoa)
+        {
+            using (var _context = new TRACNGHIEM_ONLINEEntities())
+            {
+                var lstQuiz = _context.Quizs.Where(x => x.Title.Contains(sTuKhoa)).ToList();
+                return PartialView(lstQuiz.OrderBy(n => n.ID_Quiz));
+            }
+            
+        }
         public ActionResult Quiz()
         {
             IEnumerable<Quiz> lstQuiz;
