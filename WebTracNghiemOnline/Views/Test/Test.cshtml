@@ -33,24 +33,26 @@
                     </td>
                     <td class="tdAnswer">
                         @Html.DisplayFor(modelItem => item.Content_of_Question)<br />
-                        @using (Html.BeginForm("Check", "Test"))
-                        {
-                        foreach (var it in lstAnswer)
-                        {
-                            if (it.ID_Question == item.ID_Question)
+                        @*@using (Html.BeginForm("Check", "Test"))
+                        {*@
+                        <div class="radio">
+                            @foreach (var it in lstAnswer)
                             {
-                                if (item.Type_of_Question == 1)
+                                if (it.ID_Question == item.ID_Question)
                                 {
-                                    @Html.RadioButton("Correct_Answer", it.Correct_Answer, new { @class = "Correct_Answer" })
+                                    if (item.Type_of_Question == 1)
+                                    {
+                                        @Html.RadioButton("Correct_Answer", it.Correct_Answer, new { @class = "Correct_Answer" })
+                                    }
+                                    else
+                                    {
+                                        @Html.CheckBox("Correct_Answer", new { @class = "Correct_Answer" })
+                                    }
+                                    @Html.DisplayFor(m => it.Answer1)<br />
                                 }
-                                else
-                                {
-                                    @Html.CheckBox("Correct_Answer", new { @class = "Correct_Answer" })
-                                }
-                                @Html.DisplayFor(m => it.Answer1)<br />
                             }
-                        }
-                        }
+                        </div>
+                        @*}*@
                     </td>
                     <td class="score">
                         @Html.Label("TestCorrect", "0")/@Html.DisplayFor(modelItem => item.Score)
