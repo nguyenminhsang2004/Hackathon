@@ -42,7 +42,7 @@ namespace WebTracNghiemOnline.Controllers
                     score += (double)(lstQuestion.SingleOrDefault(n => n.ID_Question == lstAnswer[i].ID_Question)).Score;
                 }
             }
-            return RedirectToAction("Mesage","Mesage",new { Score=score});
+            return RedirectToAction("Mesage","Mesage", new { Score = score });
         }
     }
 }

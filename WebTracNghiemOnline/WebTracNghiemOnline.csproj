@@ -168,6 +168,7 @@
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>WebTracNghiemOnlineModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TestViewModel.cs" />
     <Compile Include="Models\Type_of_Question.cs">
       <DependentUpon>WebTracNghiemOnlineModel.tt</DependentUpon>
     </Compile>

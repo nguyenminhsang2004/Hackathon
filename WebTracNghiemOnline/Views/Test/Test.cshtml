@@ -24,8 +24,8 @@
         </tr>
         @foreach (var item in Model)
         {
-            using (Html.BeginForm()) 
-            {
+            //using (Html.BeginForm())
+            //{
 
                 <tr>
                     <td>
@@ -33,30 +33,31 @@
                     </td>
                     <td class="tdAnswer">
                         @Html.DisplayFor(modelItem => item.Content_of_Question)<br />
-                        @foreach (var it in lstAnswer)
+                        @using (Html.BeginForm("Check", "Test"))
+                        {
+                        foreach (var it in lstAnswer)
                         {
                             if (it.ID_Question == item.ID_Question)
                             {
                                 if (item.Type_of_Question == 1)
                                 {
-                                    @*@Html.RadioButton("Correct_Answer",it.Correct_Answer, new { @class = "Correct_Answer" })*@
-                                    <input type="radio" class="Correct_Answer" />
+                                    @Html.RadioButton("Correct_Answer", it.Correct_Answer, new { @class = "Correct_Answer" })
                                 }
                                 else
                                 {
-                                    @*@Html.CheckBox("Correct_Answer",true, new { @class = "Correct_Answer" })*@
-                                    <input type="checkbox" class="Correct_Answer" />
+                                    @Html.CheckBox("Correct_Answer", new { @class = "Correct_Answer" })
                                 }
                                 @Html.DisplayFor(m => it.Answer1)<br />
                             }
+                        }
                         }
                     </td>
                     <td class="score">
                         @Html.Label("TestCorrect", "0")/@Html.DisplayFor(modelItem => item.Score)
                     </td>
                 </tr>
-            }
-            
+            @*}*@
+
         }
         <tr style="display:none">@Html.Hidden("ID_Quiz", (int)ViewBag.Id, new { @class = "ID_Quiz" })</tr>
         <tr style="display:none">
@@ -64,6 +65,7 @@
                 @foreach (var i in lstAnswer)
                 {
                     @Html.TextBox("ID", i.ID_Question, new { @class = "ID" })
+
                 }
             </td>
         </tr>
@@ -77,10 +79,9 @@
         </tr>
 
     </table>
+
     <input type="submit" value="Nộp bài" class="btn-success" id="btnSubmit" />
 }
-
-
 <style>
     #Correct_Answer {
         margin-right: 10px;
@@ -90,7 +91,8 @@
         width: 65px;
     }
 
-    .tdAnswer {
+    .checkboxCorrect {
+        display: none;
     }
 </style>
 <script>
