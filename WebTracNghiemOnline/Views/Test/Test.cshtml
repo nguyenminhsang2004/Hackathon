@@ -24,8 +24,8 @@
         </tr>
         @foreach (var item in Model)
         {
-            //using (Html.BeginForm())
-            //{
+            using (Html.BeginForm("Check", "Test"))
+            {
 
                 <tr>
                     <td>
@@ -35,7 +35,6 @@
                         @Html.DisplayFor(modelItem => item.Content_of_Question)<br />
                         @*@using (Html.BeginForm("Check", "Test"))
                         {*@
-                        <div class="radio">
                             @foreach (var it in lstAnswer)
                             {
                                 if (it.ID_Question == item.ID_Question)
@@ -51,14 +50,13 @@
                                     @Html.DisplayFor(m => it.Answer1)<br />
                                 }
                             }
-                        </div>
                         @*}*@
                     </td>
                     <td class="score">
                         @Html.Label("TestCorrect", "0")/@Html.DisplayFor(modelItem => item.Score)
                     </td>
                 </tr>
-            @*}*@
+            }
 
         }
         <tr style="display:none">@Html.Hidden("ID_Quiz", (int)ViewBag.Id, new { @class = "ID_Quiz" })</tr>
@@ -67,7 +65,6 @@
                 @foreach (var i in lstAnswer)
                 {
                     @Html.TextBox("ID", i.ID_Question, new { @class = "ID" })
-
                 }
             </td>
         </tr>
@@ -79,7 +76,6 @@
                 }
             </td>
         </tr>
-
     </table>
 
     <input type="submit" value="Nộp bài" class="btn-success" id="btnSubmit" />

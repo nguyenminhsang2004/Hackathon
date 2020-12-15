@@ -31,11 +31,17 @@
             grid.Column("Chi tiết", format: p => @Html.ActionLink("Xem chi tiết", "Question", new { id = p.ID_Quiz })),
             grid.Column("Chỉnh sửa", format: p => @Html.ActionLink("Chỉnh sửa", "EditQuiz", new { id = p.ID_Quiz })),
             grid.Column("Xóa", format: p => @Html.ActionLink("Xóa", "DeleteQuiz", new { id = p.ID_Quiz })),
-            grid.Column("Test", format: p => @Html.ActionLink("Test", "Test", "Test", new { id = p.ID_Quiz }, null))
+            grid.Column("Test", format: p => @Html.ActionLink("Test", "Test", "Test", new { id = p.ID_Quiz}, null))
         )
     )
 </div>
 <style>
+    .gridRow td a{
+        text-decoration:none;
+    }
+    .gridAltRow td a {
+        text-decoration: none;
+    }
     .gridTable {
         border: 1px solid #999999;
         width: 100%;
