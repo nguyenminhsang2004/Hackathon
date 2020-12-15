@@ -68,16 +68,26 @@
                 @Html.ActionLink("Edit", "EditQuestion", new { id = item.ID_Question})             
             </td>
             <td>
-                @Html.ActionLink("Delete", "DeleteQuestion", new { id = item.ID_Question})
+                @Html.ActionLink("Delete", "DeleteQuestion", new { id = item.ID_Question},new {@class="Delete" })
             </td>
         </tr>
     }
 }
-
+    
 </table>
-
+<script src="~/Scripts/jquery-3.5.1.min.js"></script>
 <style>
     #Correct{
         margin-right:10px;
     }
+    .table tr td a{
+        text-decoration:none;
+    }
 </style>
+<script>
+    $('.Delete').click(function () {
+        if (!confirm("Bạn có chắc muốn xóa???")) {
+            return false;
+        }
+    })
+</script>

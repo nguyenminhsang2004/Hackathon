@@ -95,7 +95,9 @@
 </style>
 <script>
     $('#btnSubmit').click(function () {
-        Update_Submit();
+        if (confirm("Bạn có chắc chắn nộp bài?") == true) {
+            Update_Submit();
+        }    
     })
     function Update_Submit() {
         var i = 0;

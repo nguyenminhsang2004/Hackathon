@@ -76,7 +76,9 @@
 </style>
 <script>
     $('#btnCapNhat').click(function () {
-        Update_Submit();
+        if (confirm("Bạn có chắc muốn chỉnh sửa???") == true) {
+            Update_Submit();
+        } 
     })
     function Update_Submit() {
         var i = 0;

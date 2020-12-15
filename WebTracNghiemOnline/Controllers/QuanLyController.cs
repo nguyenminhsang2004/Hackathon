@@ -80,7 +80,7 @@ namespace WebTracNghiemOnline.Controllers
                 var a = _context.Answers.ToList().Where(n => n.ID_Question == id);
                 ViewBag.Answers = a;
                 ViewBag.Id = q.ID_Quiz;
-                return View(q) ;
+                return View(q);
             }
         }
         public ActionResult UpdateQuestion(Question q, IEnumerable<AnswerViewModel> a)

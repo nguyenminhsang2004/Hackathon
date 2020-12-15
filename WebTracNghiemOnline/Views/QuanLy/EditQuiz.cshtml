@@ -3,7 +3,7 @@
     ViewBag.Title = "EditQuiz";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<script src="~/Scripts/jquery-3.5.1.min.js"></script>
 <h2>EditQuiz</h2>
 <table class="table">
     <tr>
@@ -33,22 +33,34 @@
     }
 </table>
 <style>
-    .table{
-        width:100%;
+    .table {
+        width: 100%;
     }
-    #Allow_Attemp{
-        width:40px;
+
+    #Allow_Attemp {
+        width: 40px;
     }
-    #Keys{
-        width:60px;
+
+    #Keys {
+        width: 60px;
     }
-    #Time{
-        width:70px;
+
+    #Time {
+        width: 70px;
     }
-    #Title{
-        width:500px;
+
+    #Title {
+        width: 500px;
     }
-    input{
-        max-width:500px;
+
+    input {
+        max-width: 500px;
     }
 </style>
+<script>
+    $('#btnCapNhat').click(function () {
+        if (!confirm("Bạn có chắc muốn chỉnh sửa???")) {
+            return false;
+        }
+    });
+</script>
