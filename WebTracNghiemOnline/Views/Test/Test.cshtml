@@ -5,7 +5,6 @@
     ViewBag.Title = "Question";
     Layout = "~/Views/Shared/_Layout.cshtml";
     IEnumerable<Answer> lstAnswer = ViewBag.Answers as IEnumerable<Answer>;
-    int count = 0;
 }
 <h2>Test</h2>
 <script src="~/Scripts/jquery-3.5.1.min.js"></script>
@@ -40,11 +39,12 @@
                             {
                                 if (item.Type_of_Question == 1)
                                 {
-                                    @Html.RadioButton("Correct_Answer", false, new { @class = "Correct_Answer" })
+                                    @Html.RadioButton("Correct", false, new { @class = "Correct_Answer" })
+                                    <input type="tel" style="display:none" class="Correct_Answer"/>
                                 }
                                 else
                                 {
-                                    @Html.CheckBox("Correct_Answer", false, new { @class = "Correct_Answer" })
+                                    @Html.CheckBox("Correct", false, new { @class = "Correct_Answer" })
                                 }
                                 @Html.DisplayFor(m => it.Answer1)<br />
                             }
@@ -58,15 +58,15 @@
 
         }
         <tr style="display:none">@Html.Hidden("ID_Quiz", (int)ViewBag.Id, new { @class = "ID_Quiz" })</tr>
-        <tr style="display:none">
+        @*<tr style="display:none">
             <td>
                 @foreach (var i in lstAnswer)
                 {
-                    @Html.TextBox("Correct_Answer",count, new { @class = "Correct_Answer" })
+                    @Html.TextBox("Correct_Answer",count, new { @class = "Correct_Answer"})
                     count++;
                 }
             </td>
-        </tr>
+        </tr>*@
         <tr style="display:none">
             <td>
                 @foreach (var i in lstAnswer)
@@ -80,7 +80,7 @@
     <input type="submit" value="Nộp bài" class="btn-success" id="btnSubmit" />
 }
 <style>
-    #Correct_Answer {
+    #Correct {
         margin-right: 10px;
     }
 
@@ -119,6 +119,5 @@
             $(this).attr('name', "[" + i + "].Correct_Answer");
             i++;
         })
-        
     }
 </script>
