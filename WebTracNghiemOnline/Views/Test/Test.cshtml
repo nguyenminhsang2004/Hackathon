@@ -5,6 +5,7 @@
     ViewBag.Title = "Question";
     Layout = "~/Views/Shared/_Layout.cshtml";
     IEnumerable<Answer> lstAnswer = ViewBag.Answers as IEnumerable<Answer>;
+    int count = 0;
 }
 <h2>Test</h2>
 <script src="~/Scripts/jquery-3.5.1.min.js"></script>
@@ -33,24 +34,21 @@
                     </td>
                     <td class="tdAnswer">
                         @Html.DisplayFor(modelItem => item.Content_of_Question)<br />
-                        @*@using (Html.BeginForm("Check", "Test"))
-                        {*@
-                            @foreach (var it in lstAnswer)
+                        @foreach (var it in lstAnswer)
+                        {
+                            if (it.ID_Question == item.ID_Question)
                             {
-                                if (it.ID_Question == item.ID_Question)
+                                if (item.Type_of_Question == 1)
                                 {
-                                    if (item.Type_of_Question == 1)
-                                    {
-                                        @Html.RadioButton("Correct_Answer", it.Correct_Answer, new { @class = "Correct_Answer" })
-                                    }
-                                    else
-                                    {
-                                        @Html.CheckBox("Correct_Answer", new { @class = "Correct_Answer" })
-                                    }
-                                    @Html.DisplayFor(m => it.Answer1)<br />
+                                    @Html.RadioButton("Correct_Answer", false, new { @class = "Correct_Answer" })
                                 }
+                                else
+                                {
+                                    @Html.CheckBox("Correct_Answer", false, new { @class = "Correct_Answer" })
+                                }
+                                @Html.DisplayFor(m => it.Answer1)<br />
                             }
-                        @*}*@
+                        }
                     </td>
                     <td class="score">
                         @Html.Label("TestCorrect", "0")/@Html.DisplayFor(modelItem => item.Score)
@@ -64,7 +62,8 @@
             <td>
                 @foreach (var i in lstAnswer)
                 {
-                    @Html.TextBox("ID", i.ID_Question, new { @class = "ID" })
+                    @Html.TextBox("Correct_Answer",count, new { @class = "Correct_Answer" })
+                    count++;
                 }
             </td>
         </tr>
@@ -120,5 +119,6 @@
             $(this).attr('name', "[" + i + "].Correct_Answer");
             i++;
         })
+        
     }
 </script>
