@@ -23,12 +23,11 @@ namespace WebTracNghiemOnline.Controllers
             }
 
         }
-        public ActionResult Check(IEnumerable<AnswerViewModel> a,int ID_Quiz)
+        public ActionResult Check(List<bool> a,int ID_Quiz)
         {
             List<Question> lstQuestion = new List<Question>();
             List<Answer> lstAnswer = new List<Answer>();
             List<AnswerViewModel> check = new List<AnswerViewModel>();
-            check.AddRange(a);
             double score = 0;
             using (var _context = new TRACNGHIEM_ONLINEEntities())
             {
@@ -37,7 +36,7 @@ namespace WebTracNghiemOnline.Controllers
             }
             for (int i = 0; i < lstAnswer.Count(); i++)
             {
-                if (lstAnswer[i].Correct_Answer == check[i].Correct_Answer && lstAnswer[i].Correct_Answer == true)
+                if (lstAnswer[i].Correct_Answer == a[i] && lstAnswer[i].Correct_Answer == true)
                 {
                     score += (double)(lstQuestion.SingleOrDefault(n => n.ID_Question == lstAnswer[i].ID_Question)).Score;
                 }
