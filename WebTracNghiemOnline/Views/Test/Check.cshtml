@@ -1,0 +1,48 @@
+﻿@model List<bool>
+@{
+    ViewBag.Title = "Check";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int count = 1;
+    int question = 1;
+    int flag = 1;
+}
+
+<div>
+    @foreach (var i in Model)
+    {
+        if (i == true && flag == 1)
+        {
+            <h4>Câu @question: Đáp án đã được lưu</h4>
+            flag = 0;
+
+        }
+        if (count % 4 == 0 && flag == 1)
+        {
+            <h4>Câu @question: Đáp án chưa được lưu</h4>
+        }
+        if (count % 4 == 0)
+        {
+            question++;
+            flag = 1;
+        }
+        count++;
+    }
+</div>
+@*<button type="submit" id="btnSubmit" class="btn-success">Nộp bài và kết thúc</button>
+<script>
+    var arr = [];
+    $('#btnSubmit').click(function () {
+        $.ajax({
+            type: 'POST',
+            data: {
+                ID_Quiz: parseInt(@ViewBag.ID_Quiz),
+                a: 
+            },
+            url:'@Url.Action("Check","Test")',
+            success: function (ketqua) {
+               $('#divQuiz').html(ketqua);
+            }
+        })
+    })
+
+</script>*@

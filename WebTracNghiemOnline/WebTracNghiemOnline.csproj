@@ -265,6 +265,7 @@
     <Content Include="Views\Test\Test.cshtml" />
     <Content Include="Views\Mesage\Mesage.cshtml" />
     <Content Include="Views\QuanLy\Search.cshtml" />
+    <Content Include="Views\Test\Check.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
