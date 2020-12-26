@@ -13,60 +13,62 @@
 <div style="margin:20px 0px; width:100%;color:black;"><h1>@ViewBag.TitleQuiz</h1></div>
 <div id="display" style="padding:5px 5px; width:70px;text-align:center;"></div>
 <div id="displaycheck" style="padding:5px 5px; width:70px;text-align:center;"></div>
-<div id="divQuiz">
-    @foreach (var item in Model)
-    {
-        if (icount % iproduct == 0 && icount != 0)
+<body o>
+    <div id="divQuiz">
+        @foreach (var item in Model)
         {
-            ipage++;
-        }
-        <div class="@Url.Content("_one_question Page" + ipage.ToString())">
-            <div class="left">
-                <h3>Câu</h3>
-                <h1>@item.ID_Question</h1>
-                <h6>Điểm: @item.Score</h6>
-            </div>
-            <div class="right">
-                <h3 style="margin-left:20px;">@item.Content_of_Question</h3>
-                <div class="Option" style="margin-left:25px;">
-                    @using (Html.BeginForm())
-                    {
-                        foreach (var it in lstAnswer)
+            if (icount % iproduct == 0 && icount != 0)
+            {
+                ipage++;
+            }
+            <div class="@Url.Content("_one_question Page" + ipage.ToString())">
+                <div class="left">
+                    <h3>Câu</h3>
+                    <h1>@item.ID_Question</h1>
+                    <h6>Điểm: @item.Score</h6>
+                </div>
+                <div class="right">
+                    <h3 style="margin-left:20px;">@item.Content_of_Question</h3>
+                    <div class="Option" style="margin-left:25px;">
+                        @using (Html.BeginForm())
                         {
-                            if (it.ID_Question == item.ID_Question)
+                            foreach (var it in lstAnswer)
                             {
-                                if (item.Type_of_Question == 1)
+                                if (it.ID_Question == item.ID_Question)
                                 {
-                                    @Html.RadioButton("Correct", false, new { @class = "Correct_Answer" })
+                                    if (item.Type_of_Question == 1)
+                                    {
+                                        @Html.RadioButton("Correct", false, new { @class = "Correct_Answer" })
+                                    }
+                                    else
+                                    {
+                                        @Html.CheckBox("Correct", false, new { @class = "Correct_Answer" })
+                                    }
+                                    @Html.DisplayFor(m => it.Answer1, new { @class = "Answer" })<br />
                                 }
-                                else
-                                {
-                                    @Html.CheckBox("Correct", false, new { @class = "Correct_Answer" })
-                                }
-                                @Html.DisplayFor(m => it.Answer1, new { @class = "Answer" })<br />
                             }
                         }
-                    }
 
+                    </div>
                 </div>
             </div>
-        </div>
-        icount++;
-    }
-
-    <div>
-        <button id="btnNext" class="btnNext">Next Page</button>
-        <button id="btnPrevious" class="btnPrevious">Previous Page</button>
-    </div>
-    <div class="Page" data-id="@ipage">
-        <h2>Câu hỏi</h2>
-        @for (int i = 0; i < ipage; i++)
-        {
-            <button class="@Url.Content("btnPage btnPage"+(i+1).ToString())" data-PageNumber="@Url.Content("Page"+(i+1).ToString())">@(i+1) </button>
+            icount++;
         }
-        <h5><a href="#" id="btnSubmit" style="text-decoration:none;">Nộp bài...</a></h5>
+
+        <div>
+            <button id="btnNext" class="btnNext">Next Page</button>
+            <button id="btnPrevious" class="btnPrevious">Previous Page</button>
+        </div>
+        <div class="Page" data-id="@ipage">
+            <h2>Câu hỏi</h2>
+            @for (int i = 0; i < ipage; i++)
+            {
+                <button class="@Url.Content("btnPage btnPage"+(i+1).ToString())" data-PageNumber="@Url.Content("Page"+(i+1).ToString())">@(i+1) </button>
+            }
+            <h5><a href="#" id="btnSubmit" style="text-decoration:none;">Nộp bài...</a></h5>
+        </div>
     </div>
-</div>
+</body>
 <style>
     * {
         margin: 0;
