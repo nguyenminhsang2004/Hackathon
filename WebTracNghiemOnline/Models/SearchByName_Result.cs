@@ -10,18 +10,10 @@
 namespace WebTracNghiemOnline.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Quiz
+    public partial class SearchByName_Result
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Quiz()
-        {
-            this.Join_Quiz = new HashSet<Join_Quiz>();
-            this.Questions = new HashSet<Question>();
-        }
-    
-        public int ID_Quiz { get; set; }
+        public string ID_Quiz { get; set; }
         public string Title { get; set; }
         public Nullable<System.DateTime> Time_Start { get; set; }
         public Nullable<System.DateTime> Time_Finish { get; set; }
@@ -29,11 +21,5 @@ namespace WebTracNghiemOnline.Models
         public Nullable<int> Allow_Attemp { get; set; }
         public string Keys { get; set; }
         public Nullable<int> Creator { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Join_Quiz> Join_Quiz { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Question> Questions { get; set; }
-        public virtual User_Ask User_Ask { get; set; }
     }
 }

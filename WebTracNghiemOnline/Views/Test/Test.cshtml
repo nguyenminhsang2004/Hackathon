@@ -296,6 +296,7 @@
     }
     //Submit
     $('#btnSubmit').click(function () {
+        getFile();
         Focus_Submit();
 
     })
@@ -304,7 +305,7 @@
         
         
     })
-    var btn = document.querySelector('#btnAddSubmit').addEventListener('click');
+    //var btn = document.querySelector('#btnAddSubmit').addEventListener('click');
     
     //Focus submit
     function Focus_Submit() {
@@ -342,6 +343,20 @@
         })
 
     }
+    //Đọc file
+    function getFile() {
+        var result;
+        $.ajax({
+            type: 'POST',
+            data: {},
+            url: '@Url.Action("GetFile","Test")',
+            success: function (ketqua) {
+                result = ketqua;
+            }
+        })
+        console.log(result);
+        return result;
+    }
 
     //Thời gian làm bài
     function Time(time, display) {
@@ -357,10 +372,10 @@
                 hours = hours < 10 ? "0" + hours : hours;
                 minutes = minutes < 10 ? "0" + minutes : minutes;
                 seconds = seconds < 10 ? "0" + seconds : seconds;
-                if (minutes < 3) {
-                    //$(display).attr('class', 'color');
-                    //x.document.querySelector(display).classList.add('color');
-                }
+                //if (minutes < 3) {
+                //    //$(display).attr('class', 'color');
+                //    //x.document.querySelector(display).classList.add('color');
+                //}
                 if (hours != 0) {
                     $(display).html("<b>" + hours + ":" + minutes + ":" + seconds + "</b>");
                 }

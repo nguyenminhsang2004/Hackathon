@@ -6,11 +6,14 @@ using System.Web.Mvc;
 using WebTracNghiemOnline.Models;
 using System.Web.UI.WebControls;
 using System.Timers;
+using System.IO;
+using System.Text;
 
 namespace WebTracNghiemOnline.Controllers
 {
     public class TestController : Controller
     {
+        private static string filePath = "D:\\Check2.txt";
         List<bool> lstSubmit = new List<bool>();
         int id = 0;
         // GET: Test
@@ -74,6 +77,23 @@ namespace WebTracNghiemOnline.Controllers
                 }
             }
             return RedirectToAction("Mesage", "Mesage", new { Score = score });
+        }
+        public string DocFile()
+        {
+            string line = "";
+            using (StreamReader sr=new StreamReader(filePath))
+            {              
+                while ((line=sr.ReadLine()) != null)
+                {
+                    line = sr.ReadLine();
+                }
+            }
+            System.IO.File.Delete(filePath);
+            return line;
+        }
+        public ActionResult GetFile()
+        {
+            return Content(DocFile());
         }
     }
 }
