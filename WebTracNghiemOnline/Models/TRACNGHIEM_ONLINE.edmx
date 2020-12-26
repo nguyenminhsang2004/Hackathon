@@ -16,6 +16,14 @@
           <Property Name="Answer" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="Correct_Answer" Type="bit" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'TRACNGHIEM_ONLINE.dbo.BangTam' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="BangTam">
+          <Key>
+            <PropertyRef Name="Ma" />
+          </Key>
+          <Property Name="Ma" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Join_Quiz">
           <Key>
             <PropertyRef Name="ID_User" />
@@ -275,6 +283,11 @@
           <EntitySet Name="User_Answer" EntityType="Self.User_Answer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Ask" EntityType="Self.User_Ask" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BangTam" EntityType="Self.BangTam" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [BangTam].[Ma] AS [Ma]
+    FROM [dbo].[BangTam] AS [BangTam]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK__Answer__20C1E124" Association="Self.FK__Answer__20C1E124">
             <End Role="Question" EntitySet="Question" />
             <End Role="Answer" EntitySet="Answer" />
@@ -443,6 +456,12 @@
           <NavigationProperty Name="User_Answer" Relationship="Self.FK__User_Answ__ID_Us__276EDEB3" FromRole="Users" ToRole="User_Answer" />
           <NavigationProperty Name="User_Ask" Relationship="Self.FK__User_Ask__ID_Use__286302EC" FromRole="Users" ToRole="User_Ask" />
         </EntityType>
+        <EntityType Name="BangTam">
+          <Key>
+            <PropertyRef Name="Ma" />
+          </Key>
+          <Property Name="Ma" Type="Int32" Nullable="false" />
+        </EntityType>
         <Association Name="FK__Answer__20C1E124">
           <End Role="Question" Type="Self.Question" Multiplicity="1" />
           <End Role="Answer" Type="Self.Answer" Multiplicity="*" />
@@ -564,6 +583,7 @@
           <EntitySet Name="User_Answer" EntityType="Self.User_Answer" />
           <EntitySet Name="User_Ask" EntityType="Self.User_Ask" />
           <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="BangTams" EntityType="Self.BangTam" />
           <AssociationSet Name="FK__Answer__20C1E124" Association="Self.FK__Answer__20C1E124">
             <End Role="Question" EntitySet="Questions" />
             <End Role="Answer" EntitySet="Answers" />
@@ -752,6 +772,13 @@
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Permisson" ColumnName="Permisson" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BangTams">
+            <EntityTypeMapping TypeName="TRACNGHIEM_ONLINEModel.BangTam">
+              <MappingFragment StoreEntitySet="BangTam">
+                <ScalarProperty Name="Ma" ColumnName="Ma" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

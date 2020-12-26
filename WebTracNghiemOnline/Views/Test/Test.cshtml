@@ -12,7 +12,7 @@
 <script src="~/Scripts/jquery-3.5.1.min.js"></script>
 <div style="margin:20px 0px; width:100%;color:black;"><h1>@ViewBag.TitleQuiz</h1></div>
 <div id="display" style="padding:5px 5px; width:70px;text-align:center;"></div>
-
+<div id="displaycheck" style="padding:5px 5px; width:70px;text-align:center;"></div>
 <div id="divQuiz">
     @foreach (var item in Model)
     {
@@ -296,7 +296,7 @@
     }
     //Submit
     $('#btnSubmit').click(function () {
-        getFile();
+        
         Focus_Submit();
 
     })
@@ -344,8 +344,8 @@
 
     }
     //Đọc file
-    function getFile() {
-        var result;
+    function getLast() {
+        
         $.ajax({
             type: 'POST',
             data: {},
@@ -353,13 +353,50 @@
             success: function (ketqua) {
                 result = ketqua;
             }
-        })
-        console.log(result);
+        });
         return result;
+        
+        //return result;
     }
 
     //Thời gian làm bài
     function Time(time, display) {
+        if (!isNaN(time)) {
+            var timer = time, hours, minutes, seconds;
+            var dem = 0;
+            var interVal = setInterval(function () {
+
+                hours = parseInt(timer / 3600, 10);
+                minutes = parseInt((timer / 60) % 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                hours = hours < 10 ? "0" + hours : hours;
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                var check = getLast();
+                if (check == 0) {
+                    dem++;
+                    TimeCheck(5, $('#displaycheck'));
+                }
+
+                if (hours != 0) {
+                    $(display).html("<b>" + hours + ":" + minutes + ":" + seconds + "</b>");
+                }
+                else {
+                    $(display).html("<b>" + minutes + ":" + seconds + "</b>");
+                }
+                if (--timer < 0 ) {
+                    timer = time;
+                    Submit();
+                    $(display).empty();
+                    clearInterval(interVal)
+                }
+            }, 1000);
+        }
+    }
+    //
+    function TimeCheck(time, display) {
         if (!isNaN(time)) {
             var timer = time, hours, minutes, seconds;
 
@@ -372,10 +409,7 @@
                 hours = hours < 10 ? "0" + hours : hours;
                 minutes = minutes < 10 ? "0" + minutes : minutes;
                 seconds = seconds < 10 ? "0" + seconds : seconds;
-                //if (minutes < 3) {
-                //    //$(display).attr('class', 'color');
-                //    //x.document.querySelector(display).classList.add('color');
-                //}
+
                 if (hours != 0) {
                     $(display).html("<b>" + hours + ":" + minutes + ":" + seconds + "</b>");
                 }
@@ -383,14 +417,11 @@
                     $(display).html("<b>" + minutes + ":" + seconds + "</b>");
                 }
                 if (--timer < 0) {
-                    timer = time;
-                    Submit();
                     $(display).empty();
                     clearInterval(interVal)
                 }
             }, 1000);
         }
     }
-
 </script>
 

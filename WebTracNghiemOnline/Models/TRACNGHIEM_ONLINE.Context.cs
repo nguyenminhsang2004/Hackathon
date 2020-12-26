@@ -37,6 +37,7 @@ namespace WebTracNghiemOnline.Models
         public virtual DbSet<User_Answer> User_Answer { get; set; }
         public virtual DbSet<User_Ask> User_Ask { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<BangTam> BangTams { get; set; }
     
         [DbFunction("TRACNGHIEM_ONLINEEntities", "SearchByName")]
         public virtual IQueryable<SearchByName_Result> SearchByName(string name)

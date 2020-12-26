@@ -13,7 +13,7 @@ namespace WebTracNghiemOnline.Controllers
 {
     public class TestController : Controller
     {
-        private static string filePath = "D:\\Check2.txt";
+        //private static string filePath = "D:\\Check2.txt";
         List<bool> lstSubmit = new List<bool>();
         int id = 0;
         // GET: Test
@@ -78,22 +78,21 @@ namespace WebTracNghiemOnline.Controllers
             }
             return RedirectToAction("Mesage", "Mesage", new { Score = score });
         }
-        public string DocFile()
+        public static string GetLast()
         {
-            string line = "";
-            using (StreamReader sr=new StreamReader(filePath))
-            {              
-                while ((line=sr.ReadLine()) != null)
-                {
-                    line = sr.ReadLine();
-                }
+            string number;
+            using (var _context=new TRACNGHIEM_ONLINEEntities())
+            {
+                var lst = _context.BangTams.ToList().LastOrDefault();
+                number = lst.Ma.ToString();
             }
-            System.IO.File.Delete(filePath);
-            return line;
+            return number;
         }
         public ActionResult GetFile()
         {
-            return Content(DocFile());
+            //ViewBag.Check = GetLast();
+            string x = GetLast();
+            return Content(x);
         }
     }
 }

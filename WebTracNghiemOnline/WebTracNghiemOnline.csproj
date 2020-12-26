@@ -163,6 +163,9 @@
       <DependentUpon>TRACNGHIEM_ONLINE.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AnswerViewModel.cs" />
+    <Compile Include="Models\BangTam.cs">
+      <DependentUpon>TRACNGHIEM_ONLINE.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Join_Quiz.cs">
       <DependentUpon>TRACNGHIEM_ONLINE.tt</DependentUpon>
     </Compile>
