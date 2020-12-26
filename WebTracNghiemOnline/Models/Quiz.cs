@@ -11,9 +11,7 @@ namespace WebTracNghiemOnline.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-
+    
     public partial class Quiz
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,8 +20,7 @@ namespace WebTracNghiemOnline.Models
             this.Join_Quiz = new HashSet<Join_Quiz>();
             this.Questions = new HashSet<Question>();
         }
-        [Required]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    
         public int ID_Quiz { get; set; }
         public string Title { get; set; }
         public Nullable<System.DateTime> Time_Start { get; set; }
