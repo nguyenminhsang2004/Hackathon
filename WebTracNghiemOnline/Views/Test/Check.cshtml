@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Check";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    int count = 1;
+    int count = 0;
     int question = 1;
     int flag = 1;
 }
@@ -16,11 +16,11 @@
             flag = 0;
 
         }
-        if (count % 4 == 0 && flag == 1)
+        if (count % 4 == 3 && flag == 1)
         {
             <h4>Câu @question: Đáp án chưa được lưu</h4>
         }
-        if (count % 4 == 0)
+        if (count % 4 == 3)
         {
             question++;
             flag = 1;

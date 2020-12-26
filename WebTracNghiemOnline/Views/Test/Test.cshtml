@@ -190,6 +190,8 @@
 </style>
 
 <script>
+    Time(@int.Parse(ViewBag.Thoigianlambai), $('#display'));
+
     var arrCorrect = [];
     var pageload = 'Page1';
     var btn_id = 1;
@@ -266,21 +268,21 @@
     })
 
     //Update trước khi submit về server
-    function Count_Answer() {
+    function Count_Answer(display) {
         var count = 1;
         var flag = 1;
         var dem = 0;
-        $('.Correct_Answer').each(function () {
+        $(display).each(function () {
             if ($(this).is(':checked') == true && flag == 1) {
-                dem = dem + 1;
+                dem++;
                 flag = 0;
             }
             if (count % 4 == 0) {
                 flag = 1;
             }
-            count = count + 1;               
+            count++;
         })
-        return dem;
+        return @ipage-dem;
     }
     //
     function Update_Submit() {
@@ -297,18 +299,20 @@
         Focus_Submit();
 
     })
-    $('body').delegate("#btnAddSubmit", "click", function () {
-        Focus_Submit();
-    })
 
+    $('body').delegate("#btnAddSubmit", "click", function () {
+        
+        
+    })
+    var btn = document.querySelector('#btnAddSubmit').addEventListener('click');
+    
     //Focus submit
     function Focus_Submit() {
         ChoseButton(parseInt(pageload.substr(pageload.length - 1, 1)));
-        var dem = Count_Answer();
-        console.log(dem);
+        var dem = Count_Answer('.Correct_Answer');
         if (dem > 0) {
             setTimeout(function () {
-                if (confirm("Bạn có chắc chắn nộp bài số câu hỏi chưa chọn là " + dem + " ?") == true) {
+                if (confirm("Bạn có chắc chắn nộp bài có " + dem + " câu hỏi chưa được chọn ?") == true) {
                     Submit();
                 }
             }, 100);
@@ -336,7 +340,7 @@
                 $('#divQuiz').html(ketqua);
             }
         })
-        
+
     }
 
     //Thời gian làm bài
@@ -353,15 +357,16 @@
                 hours = hours < 10 ? "0" + hours : hours;
                 minutes = minutes < 10 ? "0" + minutes : minutes;
                 seconds = seconds < 10 ? "0" + seconds : seconds;
+                if (minutes < 3) {
+                    //$(display).attr('class', 'color');
+                    //x.document.querySelector(display).classList.add('color');
+                }
                 if (hours != 0) {
                     $(display).html("<b>" + hours + ":" + minutes + ":" + seconds + "</b>");
                 }
                 else {
                     $(display).html("<b>" + minutes + ":" + seconds + "</b>");
                 }
-                //if (minutes < 3) {
-                //    $(display).attr('class', 'color');
-                //}
                 if (--timer < 0) {
                     timer = time;
                     Submit();
@@ -371,6 +376,6 @@
             }, 1000);
         }
     }
-    Time(@int.Parse(ViewBag.Thoigianlambai), $('#display'));
+
 </script>
 
