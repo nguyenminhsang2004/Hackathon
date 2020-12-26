@@ -10,11 +10,28 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+<<<<<<< HEAD
 
 namespace RealTimeFaceApi.Cmd
 {
     public static class Program
     {
+=======
+using System.Text;
+using System.Data;
+using System.Data.SqlClient;
+//using static System.Net.Mime.MediaTypeNames;
+using Google.Cloud.Vision.V1;
+//using WebTracNghiemOnline;
+
+namespace RealTimeFaceApi.Cmd
+{
+
+    public class Program
+    {
+        private static string filePath = @"D:\\Check.txt";
+        private static int check = 1;
+>>>>>>> develop
         // TODO: Add Face API subscription key.
         private static string FaceSubscriptionKey = "";
 
@@ -25,9 +42,59 @@ namespace RealTimeFaceApi.Cmd
         private static FaceClient _faceClient;
         private static Task _faceRecognitionTask = null;
         private static IList<Person> _cachedIdentities = null;
+<<<<<<< HEAD
 
         public static void Main(string[] args)
         {
+=======
+        private static void sqlCon(int x)
+        {
+            var datasource = @"DESKTOP-2FLS3J3\PHISQL";//your server
+            var database = "TRACNGHIEM_ONLINE"; //your database name
+            var username = "sa"; //username of server to connect
+            var password = "tuanphi1609"; //password
+
+            //your connection string 
+            string connString = @"Data Source=" + datasource + ";Initial Catalog="
+                        //+ database + ";Persist Security Info=True;";
+                        + database + ";Persist Security Info=True;User ID=" + username + ";Password=" + password;
+
+            //create instanace of database connection
+            SqlConnection conn = new SqlConnection(connString);
+            conn.Open();
+            //create a new SQL Query using StringBuilder
+            StringBuilder strBuilder = new StringBuilder();
+            strBuilder.Append("INSERT INTO BangTam VALUES ");
+            strBuilder.Append("("+x.ToString()+")");
+
+            string sqlQuery = strBuilder.ToString();
+            using (SqlCommand command = new SqlCommand(sqlQuery, conn)) //pass SQL query created above and connection
+            {
+                command.ExecuteNonQuery(); //execute the Query
+                Console.WriteLine("Query Executed.");
+            }
+        }
+
+        public static void Main(string[] args)
+        {
+
+
+            //// Instantiates a client
+            //var client = ImageAnnotatorClient.Create();
+            //// Load the image file into memory
+            //var image = Image.FromFile("wakeupcat.jpg");
+            //// Performs label detection on the image file
+            //var response = client.DetectLabels(image);
+            //foreach (var annotation in response)
+            //{
+            //    if (annotation.Description != null)
+            //        Console.WriteLine(annotation.Description);
+            //}
+
+            //GetCheck gt = new GetCheck();
+
+
+>>>>>>> develop
             _faceClient = new FaceClient(new ApiKeyServiceClientCredentials(FaceSubscriptionKey))
             {
                 Endpoint = "https://westus.api.cognitive.microsoft.com"
@@ -44,7 +111,41 @@ namespace RealTimeFaceApi.Cmd
             string filename = args.FirstOrDefault();
             Run(filename);
         }
+<<<<<<< HEAD
 
+=======
+        
+
+        public static void GhiFile(string path, string content)
+        {
+            FileStream fs = new FileStream(path, FileMode.OpenOrCreate);
+            StreamWriter sWriter = new StreamWriter(fs, Encoding.UTF8);
+            //if (System.IO.File.Exists("D:\\Check2.txt"))
+            //{
+            //    System.IO.File.Delete("D:\\Check2.txt");
+            //}
+
+            //System.IO.File.Copy(Path.Combine("D:\\", "Check.txt"), Path.Combine("D:\\", "Check2.txt"));
+            sWriter.WriteLine(content);
+            sWriter.Flush();
+            fs.Close();
+            fs.Dispose();
+        }
+        
+        public static string ReturnPath()
+        {
+            string path = Environment.CurrentDirectory;
+            return path;
+        }
+        public static int GetCheck(int n)
+        {
+            if (n > 0)
+            {
+                return 1;
+            }
+            return 0;
+        }
+>>>>>>> develop
         private static void Run(string filename)
         {
             int timePerFrame;
@@ -61,9 +162,15 @@ namespace RealTimeFaceApi.Cmd
             {
                 // Otherwise use the webcam.
                 capture = InitializeCapture(0);
+<<<<<<< HEAD
                 
                 // Time required to wait until next frame.
                 timePerFrame = (int)Math.Round(1000 / capture.Fps);
+=======
+
+                // Time required to wait until next frame.
+                timePerFrame = (int)Math.Round(3053 / capture.Fps);
+>>>>>>> develop
             }
 
             // Input was not initialized.
@@ -75,7 +182,11 @@ namespace RealTimeFaceApi.Cmd
 
             // Initialize face detection algorithm.
             CascadeClassifier haarCascade = InitializeFaceClassifier();
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> develop
             // List of simple face filtering algorithms.
             var filtering = new SimpleFaceFiltering(new IFaceFilter[]
             {
@@ -113,7 +224,32 @@ namespace RealTimeFaceApi.Cmd
 
                         if (hasChange)
                         {
+<<<<<<< HEAD
                             Console.WriteLine("Changes detected...");
+=======
+                            //Console.WriteLine("Changes detected...");
+                            switch (check)
+                            {
+                                case 0:
+                                    {
+                                        check = 1;
+                                        //GhiFile(filePath, "1");
+                                        sqlCon(check);
+                                        //Console.WriteLine(GetCheck(check));
+                                        //Console.WriteLine(check);
+                                        break;
+                                    }
+                                case 1:
+                                    {
+                                        check = 0;
+                                        //GhiFile(filePath, "0");
+                                        sqlCon(check);
+                                        //Console.WriteLine(GetCheck(check));
+                                        //Console.WriteLine(check);
+                                        break;
+                                    }
+                            }
+>>>>>>> develop
 
                             // Identify faces if changed and previous identification finished.
                             if (_faceRecognitionTask == null && !string.IsNullOrWhiteSpace(FaceSubscriptionKey))

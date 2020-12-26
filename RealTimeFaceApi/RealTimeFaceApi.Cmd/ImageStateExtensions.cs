@@ -12,6 +12,7 @@ namespace RealTimeFaceApi.Cmd
             {
                 Center = new System.Drawing.Point
                 {
+<<<<<<< HEAD
                     X = (int)(face.X + face.Width * 0.5),
                     Y = (int)(face.Y + face.Height * 0.5)
                 },
@@ -19,6 +20,15 @@ namespace RealTimeFaceApi.Cmd
                 {
                     Width = (int)(face.Width * 0.5) + 5,
                     Height = (int)(face.Height * 0.5) + 5
+=======
+                    X = (int)(face.X+ face.Width * 0.5),
+                    Y = (int)(face.Y+ face.Height * 0.5)
+                },
+                Size = new System.Drawing.Size
+                {
+                    Width =(int)(face.Width * 0.5) + 10,
+                    Height = (int)(face.Height * 0.5) + 10
+>>>>>>> develop
                 }
             });
 

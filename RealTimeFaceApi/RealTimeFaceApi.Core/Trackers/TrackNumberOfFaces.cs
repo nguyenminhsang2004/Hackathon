@@ -8,7 +8,10 @@ namespace RealTimeFaceApi.Core.Trackers
         {
             var prevStateNumber = previousState?.Faces?.Count ?? 0;
             var newStateNumber = newState?.Faces?.Count ?? 0;
+<<<<<<< HEAD
 
+=======
+>>>>>>> develop
             return prevStateNumber != newStateNumber;
         }
     }

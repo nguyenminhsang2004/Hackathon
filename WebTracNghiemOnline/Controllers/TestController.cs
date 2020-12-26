@@ -6,12 +6,18 @@ using System.Web.Mvc;
 using WebTracNghiemOnline.Models;
 using System.Web.UI.WebControls;
 using System.Timers;
+<<<<<<< HEAD
 using RealTimeFaceApi.Cmd;
+=======
+using System.IO;
+using System.Text;
+>>>>>>> develop
 
 namespace WebTracNghiemOnline.Controllers
 {
     public class TestController : Controller
     {
+        //private static string filePath = "D:\\Check2.txt";
         List<bool> lstSubmit = new List<bool>();
         int id = 0;
         // GET: Test
@@ -76,6 +82,22 @@ namespace WebTracNghiemOnline.Controllers
                 }
             }
             return RedirectToAction("Mesage", "Mesage", new { Score = score });
+        }
+        public static string GetLast()
+        {
+            string number;
+            using (var _context=new TRACNGHIEM_ONLINEEntities())
+            {
+                var lst = _context.BangTams.ToList().LastOrDefault();
+                number = lst.Ma.ToString();
+            }
+            return number;
+        }
+        public ActionResult GetFile()
+        {
+            //ViewBag.Check = GetLast();
+            string x = GetLast();
+            return Content(x);
         }
     }
 }
