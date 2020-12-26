@@ -17,8 +17,8 @@ namespace RealTimeFaceApi.Cmd
                 },
                 Size = new System.Drawing.Size
                 {
-                    Width = (int)(face.Width * 0.5) + 10,
-                    Height = (int)(face.Height * 0.5) + 10
+                    Width = (int)(face.Width * 0.5) + 5,
+                    Height = (int)(face.Height * 0.5) + 5
                 }
             });
 

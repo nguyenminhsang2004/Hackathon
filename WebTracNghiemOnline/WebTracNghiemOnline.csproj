@@ -52,6 +52,14 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="RealTimeFaceApi.Cmd, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RealTimeFaceApi\RealTimeFaceApi.Cmd\bin\Debug\netcoreapp3.1\RealTimeFaceApi.Cmd.dll</HintPath>
+    </Reference>
+    <Reference Include="RealTimeFaceApi.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RealTimeFaceApi\RealTimeFaceApi.Core\bin\Debug\netstandard2.0\RealTimeFaceApi.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />

@@ -4,6 +4,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.30611.23
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebTracNghiemOnline", "WebTracNghiemOnline\WebTracNghiemOnline.csproj", "{B85716A9-98A5-4BD6-BE40-4BAE27B81E3A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{598AA00A-17F9-42A6-876C-B3368F892316} = {598AA00A-17F9-42A6-876C-B3368F892316}
+		{698E5C7F-F79B-4692-9AA7-104258BBC376} = {698E5C7F-F79B-4692-9AA7-104258BBC376}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RealTimeFaceApi.Cmd", "..\RealTimeFaceApi\RealTimeFaceApi.Cmd\RealTimeFaceApi.Cmd.csproj", "{598AA00A-17F9-42A6-876C-B3368F892316}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RealTimeFaceApi.Core", "..\RealTimeFaceApi\RealTimeFaceApi.Core\RealTimeFaceApi.Core.csproj", "{698E5C7F-F79B-4692-9AA7-104258BBC376}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RealTimeFaceApi.Core.Tests", "..\RealTimeFaceApi\RealTimeFaceApi.Core.Tests\RealTimeFaceApi.Core.Tests.csproj", "{04E8ED1F-7F1F-47BC-B6FB-B91414CD7B78}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +25,18 @@ Global
 		{B85716A9-98A5-4BD6-BE40-4BAE27B81E3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B85716A9-98A5-4BD6-BE40-4BAE27B81E3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B85716A9-98A5-4BD6-BE40-4BAE27B81E3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{598AA00A-17F9-42A6-876C-B3368F892316}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{598AA00A-17F9-42A6-876C-B3368F892316}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{598AA00A-17F9-42A6-876C-B3368F892316}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{598AA00A-17F9-42A6-876C-B3368F892316}.Release|Any CPU.Build.0 = Release|Any CPU
+		{698E5C7F-F79B-4692-9AA7-104258BBC376}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{698E5C7F-F79B-4692-9AA7-104258BBC376}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{698E5C7F-F79B-4692-9AA7-104258BBC376}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{698E5C7F-F79B-4692-9AA7-104258BBC376}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04E8ED1F-7F1F-47BC-B6FB-B91414CD7B78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04E8ED1F-7F1F-47BC-B6FB-B91414CD7B78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04E8ED1F-7F1F-47BC-B6FB-B91414CD7B78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04E8ED1F-7F1F-47BC-B6FB-B91414CD7B78}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

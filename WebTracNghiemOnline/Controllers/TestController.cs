@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using WebTracNghiemOnline.Models;
 using System.Web.UI.WebControls;
 using System.Timers;
+using RealTimeFaceApi.Cmd;
 
 namespace WebTracNghiemOnline.Controllers
 {
@@ -26,6 +27,7 @@ namespace WebTracNghiemOnline.Controllers
                 ViewBag.Id = id;
                 ViewBag.TitleQuiz = title;
                 ViewBag.Thoigianlambai = _context.Quizs.SingleOrDefault(n => n.ID_Quiz == id).Time.Value.TotalSeconds.ToString();
+                //RealTimeFaceApi.Cmd.Program..GetCheck(4);
                 return View(lstQuestion);
             }
 
